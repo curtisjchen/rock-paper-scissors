@@ -1,32 +1,48 @@
+let playerScore = 0;
+let computerScore = 0;
+let ties = 0;
+
 function getComputerChoice() {
-    let val = Math.random();
-    if (val <= 1/3) return "rock";
-    if (val <= 2/3) return "paper";
-    return "scissors"
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomIdx = Math.floor(Math.random() * choices.length);
+    return choices[randomIdx]
 }
 
-function getUserChoice() {
-    let val = prompt("enter your choice:");
-    return val;
+function getWinner(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        ties++
+        return "Tie";
+    }
+    if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+        playerScore++;
+        return 'You win!';
+    } else {
+        computerScore++;
+        return 'You lose!';
+    }
 }
 
-function playRound(humanChoice, computerChoice) {
-    let humanlower = humanChoice.toLowerCase();
-    if (humanlower !== computerChoice) {
-        if (humanlower === "rock" && computerChoice === "scissors") {
-            userScore++;
-        }
-        else if (humanlower === "scissors" && computerChoice === "paper") {
-            userScore++;
-        }
-        else if (humanlower === "paper" && computerChoice === "rock") {
-            userScore++;
-        }
-        else {
-            computerScore++;
-        }
-    }
-    else {
-        console.log('tie')
-    }
+function updateScores() {
+    document.getElementById('player-score').textContent = playerScore;
+    document.getElementById('computer-score').textContent = computerScore;
+    document.getElementById('ties').textContent = ties;
 }
+
+
+function playGame(event) {
+    const playerChoice = event.target.id;
+    const computerChoice = getComputerChoice();
+    const result = getWinner(playerChoice, computerChoice);
+
+    document.getElementById('result').textContent = `You chose ${playerChoice}, computer chose ${computerChoice}, ${result}`;
+
+    updateScores();
+}
+
+document.getElementById('scissors').addEventListener('click', playGame)
+document.getElementById('rock').addEventListener('click', playGame)
+document.getElementById('paper').addEventListener('click', playGame)

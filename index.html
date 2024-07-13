@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="computer-choice.js">
-    </script>
+    <script src="computer-choice.js" defer></script>
 </head>
 <body>
-    <script>
-        let userScore = 0
-        let computerScore = 0
-        const computerChoice = getComputerChoice();
-        const userChoice = getUserChoice()
-        playRound(userChoice, computerChoice)
-        console.log(userScore)
-        console.log(computerScore)
-    </script>
+    <div>
+        <button id="scissors">Scissors</button>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+    </div>
+    <div id="result"></div>
+    <div>
+        <p>Player Score: <span id="player-score"></span></p>
+        <p>Computer Score: <span id="computer-score"></span></p>
+        <p>Ties: <span id="ties"></span></p>
+    </div>
 </body>
 </html>
